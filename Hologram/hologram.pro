@@ -1,4 +1,4 @@
-QT       += core gui multimedia
+QT       += core gui multimedia multimediawidgets
 LIBS += -lusb-1.0
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

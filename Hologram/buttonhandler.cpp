@@ -3,14 +3,26 @@
 #include<unistd.h>
 
 #include <QDebug>
+#include <QMediaPlayer>
+#include <QVideoWidget>
+#include <QUrl>
+#include <QPushButton>
+#include <QObject>
+
+
 
 static const int VENDOR_ID = 0x0079;
 static const int PRODUCT_ID = 0x0006;
 static const int ENDPOINT_ADDRESS = 0x81;
 
+// Trying to work on this ButtonHandler constructor, issue is with the connect functionality.
 ButtonHandler::ButtonHandler()
 {
-
+    QMediaPlayer* player = new QMediaPlayer();
+    player->setMedia(QUrl::fromLocalFile("/home/kiet/Videos/parkranger.mp4"));
+    player->setVideoOutput(videoWidget);
+    QPushButton* button1 = new QPushButton("Button 1");
+    //connect(button1, &QPushButton::pressed, this, &ButtonHandler::playVideo); Issue with this
 }
 
 void* event_thread(void* arg)
@@ -22,6 +34,11 @@ void* event_thread(void* arg)
     return NULL;
 }
 
+// Function to play the video
+void ButtonHandler::playVideo()
+{
+    player->play();
+}
 void ButtonHandler::handleButtonPress()
 {
     libusb_device_handle* dev_handle;
@@ -81,6 +98,7 @@ void ButtonHandler::handleButtonPress()
                     switch(buffer[5]){
                         case 0x1f:
                             qDebug() << "Button 1 pressed!";
+                            playVideo();
                             sleep(1);
                             break;
                         case 0x2f:

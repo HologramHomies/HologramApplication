@@ -11,8 +11,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ButtonHandler button = ButtonHandler();
     button.handleButtonPress();
-
+    /*
+    QVideoWidget *videoWidget = new QVideoWidget(this);
+    setCentralWidget(videoWidget);
+    QMediaPlayer *mediaPlayer = new QMediaPlayer(this);
+    mediaPlayer->setVideoOutput(videoWidget);
+    */
 }
+
+
 
 MainWindow::~MainWindow()
 {
