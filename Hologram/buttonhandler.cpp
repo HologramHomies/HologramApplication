@@ -8,21 +8,13 @@ static const int VENDOR_ID = 0x0079;
 static const int PRODUCT_ID = 0x0006;
 static const int ENDPOINT_ADDRESS = 0x81;
 
-ButtonHandler::ButtonHandler()
+ButtonHandler::ButtonHandler(QObject* parent)
+    : QObject(parent)
 {
 
 }
 
-void* event_thread(void* arg)
-{
-    libusb_context* ctx = (libusb_context*)arg;
-    while (1) {
-        libusb_handle_events(ctx);
-    }
-    return NULL;
-}
-
-void ButtonHandler::handleButtonPress()
+void ButtonHandler::listenToButtons()
 {
     libusb_device_handle* dev_handle;
     libusb_device** device_list;
@@ -81,36 +73,44 @@ void ButtonHandler::handleButtonPress()
                     switch(buffer[5]){
                         case 0x1f:
                             qDebug() << "Button 1 pressed!";
+                            emit buttonPressed(1);
                             sleep(1);
                             break;
                         case 0x2f:
                             qDebug() << "Button 2 pressed!";
+                            emit buttonPressed(2);
                             sleep(1);
                             break;
                         case 0x4f:
                             qDebug() << "Button 3 pressed!";
+                            emit buttonPressed(3);
                             sleep(1);
                             break;
                         case 0x8f:
                             qDebug() << "Button 4 pressed!";
+                            emit buttonPressed(4);
                             sleep(1);
                             break;
                         default:
                             switch(buffer[6]){
                             case 0x1:
                                 qDebug() << "Button 5 pressed!";
+                                emit buttonPressed(5);
                                 sleep(1);
                                 break;
                             case 0x2:
                                 qDebug() << "Button 6 pressed!";
+                                emit buttonPressed(6);
                                 sleep(1);
                                 break;
                             case 0x4:
                                 qDebug() << "Button 7 pressed!";
+                                emit buttonPressed(7);
                                 sleep(1);
                                 break;
                             case 0x8:
                                 qDebug() << "Button 8 pressed!";
+                                emit buttonPressed(8);
                                 sleep(1);
                                 break;
                             }
@@ -134,5 +134,4 @@ void ButtonHandler::handleButtonPress()
     libusb_exit(context);
 
     return;
-
 }
