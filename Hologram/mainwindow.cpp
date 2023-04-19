@@ -5,10 +5,11 @@
 #include <QThread>
 #include <QFileDialog>
 #include <QVideoWidget>
-#include <QVBoxLayout>4
+#include <QVBoxLayout>
 #include <QXmlStreamReader>
 #include <QFile>
 #include "buttonhandler.h"
+#include "video_config.h"
 
 void MainWindow::onButtonPressed(int buttonId)
 {
@@ -52,16 +53,14 @@ void MainWindow::onButtonPressed(int buttonId)
             return;
     }
 
-    QString videoPath = videoDirPath + "/" + videoFileName;
-
     // Load the video file into the media player and start playback
-    videoWidget->setBrightness(video_list[button_id].getBrightness());
-    videoWidget->setContrast(video_list[button_id].getContrast());
-    player->setPosition(video_list[button_id].getStart_pos());
-    player->setMedia(QUrl::fromLocalFile(video_list[button_id].getVideo_path()));
+    videoWidget->setBrightness(video_list[button_id]->getBrightness());
+    videoWidget->setContrast(video_list[button_id]->getContrast());
+    player->setPosition(video_list[button_id]->getStart_pos());
+    player->setMedia(QUrl::fromLocalFile(video_list[button_id]->getVideo_path()));
     connect(player,&QMediaPlayer::positionChanged,[=](int value){
 
-        if(value>= video_list[button_id].getEnd_pos()){
+        if(value>= video_list[button_id]->getEnd_pos()){
             player->stop();
         }
 
@@ -140,7 +139,7 @@ void MainWindow::on_pushButton_clicked()
 
     while(xml_file_path == ""){
         // Get config folder
-        config_folder = QFileDialog::getOpenFileName(this,
+        QString config_folder = QFileDialog::getOpenFileName(this,
             tr("Open config usb"), "/home/");
 
         // Search directory for xml file
@@ -155,15 +154,26 @@ void MainWindow::on_pushButton_clicked()
     }
 
     // Open xml file
-    //The QDomDocument class represents an XML document.
-    QDomDocument xmlDOM;
     // Load xml file as raw data
     QFile f(xml_file_path);
     if (!f.open(QIODevice::ReadOnly ))
     {
-        // Error while loading file
-        std::cerr << "Error while loading file" << std::endl;
-        return 1;
+        xml_file_path ="";
+        while(xml_file_path == ""){
+            // Get config folder
+            QString config_folder = QFileDialog::getOpenFileName(this,
+                tr("Open config usb"), "/home/");
+
+            // Search directory for xml file
+            QStringList nameFilter("*.xml");
+            QDir directory(config_folder);
+            QStringList xml_file_ext = directory.entryList(nameFilter);
+
+            // Check xml file exists and set to file path
+            if(xml_file_ext[0] != NULL){
+                QString xml_file_path = config_folder + xml_file_ext[0];
+            }
+        }
     }
     // Set data into the QDomDocument before processing
     QXmlStreamReader reader(&f);
@@ -171,28 +181,29 @@ void MainWindow::on_pushButton_clicked()
 
 
     if (reader.readNextStartElement()) {
-            if (reader.name() == "configuration"){
-                int num_videos = 0;
-                while(reader.readNext(()){
-                    if(reader.name() == "button"){
-                        int buttonID = reader.attributes().value("id");
-                        QString video_path = reader.attributes().value("video_path");
-                        int brightness = reader.attributes().value("brightness");
-                        int contrast = reader.attributes().value("contrast");
-                        int start_pos = reader.attributes().value("start_pos");
-                        int end_pos = reader.attributes().value("end_pos");
+        if (reader.name() == "configuration"){
+            int num_videos = 0;
+            while(reader.readNext()){
+                if(reader.name() == "button"){
+                    int buttonID = reader.attributes().value("id").toInt();
+                    QString video_path = reader.attributes().value("video_path").toString();
+                    int brightness = reader.attributes().value("brightness").toInt();
+                    int contrast = reader.attributes().value("contrast").toInt();
+                    int start_pos = reader.attributes().value("start_pos").toInt();
+                    int end_pos = reader.attributes().value("end_pos").toInt();
 
-                      //Store in array
-                      video_list[num_videos] = video_config(buttonID, video_path, brightness, contrast, start_pos, end_pos);
-                      // Iterate
-                      num_videos++;
-                    }
-                    else
-                        reader.skipCurrentElement();
+                  //Store in array
+                  video_list[num_videos] = new video_config(buttonID, video_path, brightness, contrast, start_pos, end_pos);
+                  // Iterate
+                  num_videos++;
+                }
+                else{
+                    reader.skipCurrentElement();
                 }
             }
-            else
-                reader.raiseError(QObject::tr("Incorrect file"));
+        }
+        else{
+            reader.raiseError(QObject::tr("Incorrect file"));
         }
     }
 }

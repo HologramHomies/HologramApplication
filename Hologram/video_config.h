@@ -1,6 +1,7 @@
 #ifndef VIDEO_CONFIG_H
 #define VIDEO_CONFIG_H
 
+#include <QString>
 
 class video_config
 {
@@ -13,7 +14,8 @@ private:
     int end_pos;
 
 public:
-    video_config(newButton_id, newVideo_path, newBrightness, newContrast, newStart_pos, newEnd_pos);
+    video_config(int newButton_id, QString newVideo_path, int newBrightness, int newContrast, int newStart_pos, int newEnd_pos);
+    ~video_config();
 
     int getButton_id() const;
     void setButton_id(int newButton_id);

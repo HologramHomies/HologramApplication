@@ -60,7 +60,7 @@ void video_config::setEnd_pos(int newEnd_pos)
     end_pos = newEnd_pos;
 }
 
-video_config::video_config(newButton_id, newVideo_path, newBrightness, newContrast, newStart_pos, newEnd_pos)
+video_config::video_config(int newButton_id, QString newVideo_path, int newBrightness, int newContrast, int newStart_pos, int newEnd_pos)
 {
     button_id = newButton_id;
     video_path = newVideo_path;

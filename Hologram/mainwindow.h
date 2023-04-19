@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMediaPlayer>
 #include <QVideoWidget>
+#include <QString>
 #include "buttonhandler.h"
 #include "video_config.h"
 
@@ -18,7 +19,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    video_config video_list [8];
+    video_config** video_list = new video_config*[8];
 
 private slots:
     void onButtonPressed(int buttonId);
