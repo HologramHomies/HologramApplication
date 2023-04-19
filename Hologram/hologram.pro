@@ -12,11 +12,13 @@ CONFIG += c++17
 SOURCES += \
     buttonhandler.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    video_config.cpp
 
 HEADERS += \
     buttonhandler.h \
-    mainwindow.h
+    mainwindow.h \
+    video_config.h
 
 FORMS += \
     mainwindow.ui
