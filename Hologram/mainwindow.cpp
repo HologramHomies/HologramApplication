@@ -6,7 +6,7 @@
 #include <QFileDialog>
 #include <QVideoWidget>
 #include <QVBoxLayout>4
-#include <QDomDocument>
+#include <QXmlStreamReader>
 #include <QFile>
 #include "buttonhandler.h"
 
@@ -166,50 +166,34 @@ void MainWindow::on_pushButton_clicked()
         return 1;
     }
     // Set data into the QDomDocument before processing
-    xmlDOM.setContent(&f);
+    QXmlStreamReader reader(&f);
     f.close();
 
-    // Read XML
-    // Extract the root markup
-    QDomElement root=xmlBOM.documentElement();
 
-    // Get the first child of the root (Markup COMPONENT is expected)
-    QDomElement Component=root.firstChild().toElement();
+    if (reader.readNextStartElement()) {
+            if (reader.name() == "configuration"){
+                int num_videos = 0;
+                while(reader.readNext(()){
+                    if(reader.name() == "button"){
+                        int buttonID = reader.attributes().value("id");
+                        QString video_path = reader.attributes().value("video_path");
+                        int brightness = reader.attributes().value("brightness");
+                        int contrast = reader.attributes().value("contrast");
+                        int start_pos = reader.attributes().value("start_pos");
+                        int end_pos = reader.attributes().value("end_pos");
 
-    int num_videos = 0;      // Track number of videos
-
-    // Check in config
-    if (Component.tagName()=="configuration")
-    {
-        // Get the first child of the component
-        QDomElement Child=Component.firstChild().toElement();
-
-        // Loop while there is a child
-        while(!Child.isNull() || !(num_videos >= 8))
-        {
-            // Check if the child tag name is COMPONENT
-            if (Child.tagName()=="button")
-            {
-
-                // Read and display the component ID
-                int buttonID = Child.attribute("id");
-                QString video_path = Child.attribute("video_path");
-                int brightness = Child.attribute("brightness");
-                int contrast = Child.attribute("contrast");
-                int start_pos = Child.attribute("start_pos");
-                int end_pos = Child.attribute("end_pos");
-
-                // Store in array
-                video_list[num_videos] = video_config(buttonID, video_path, brightness, contrast, start_pos, end_pos);
-                // Iterate
-                num_videos++;
+                      //Store in array
+                      video_list[num_videos] = video_config(buttonID, video_path, brightness, contrast, start_pos, end_pos);
+                      // Iterate
+                      num_videos++;
+                    }
+                    else
+                        reader.skipCurrentElement();
+                }
             }
-
-            // Get next video
-            Child = Child.nextSibling().toElement();
+            else
+                reader.raiseError(QObject::tr("Incorrect file"));
         }
-
     }
-
 }
 
