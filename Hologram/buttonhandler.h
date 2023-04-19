@@ -10,7 +10,6 @@ public:
     ButtonHandler(QObject* parent = nullptr);
     void listenToButtons();
 
-
 signals:
     void buttonPressed(int buttonId);
 

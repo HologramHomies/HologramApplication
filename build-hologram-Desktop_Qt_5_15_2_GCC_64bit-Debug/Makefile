@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_QML_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++1z -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../Hologram -I. -I../../Qt/5.15.2/gcc_64/include -I../../Qt/5.15.2/gcc_64/include/QtMultimedia -I../../Qt/5.15.2/gcc_64/include/QtWidgets -I../../Qt/5.15.2/gcc_64/include/QtGui -I../../Qt/5.15.2/gcc_64/include/QtNetwork -I../../Qt/5.15.2/gcc_64/include/QtCore -I. -I/usr/include/libdrm -I. -I../../Qt/5.15.2/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../Hologram -I. -I../../Qt/5.15.2/gcc_64/include -I../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets -I../../Qt/5.15.2/gcc_64/include/QtMultimedia -I../../Qt/5.15.2/gcc_64/include/QtWidgets -I../../Qt/5.15.2/gcc_64/include/QtGui -I../../Qt/5.15.2/gcc_64/include/QtNetwork -I../../Qt/5.15.2/gcc_64/include/QtCore -I. -I/usr/include/libdrm -I. -I../../Qt/5.15.2/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/kiet/Qt/5.15.2/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -39,8 +39,8 @@ COMPRESS      = gzip -9f
 DISTNAME      = hologram1.0.0
 DISTDIR = /home/kiet/HologramApplication/build-hologram-Desktop_Qt_5_15_2_GCC_64bit-Debug/.tmp/hologram1.0.0
 LINK          = g++
-LFLAGS        = -Wl,-rpath,/home/kiet/Qt/5.15.2/gcc_64/lib
-LIBS          = $(SUBLIBS) -lusb-1.0 /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5Multimedia.so /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5Widgets.so /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5Gui.so /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5Network.so /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5Core.so -lGL -lpthread   
+LFLAGS        = -Wl,-rpath,/home/kiet/Qt/5.15.2/gcc_64/lib -Wl,-rpath-link,/home/kiet/Qt/5.15.2/gcc_64/lib
+LIBS          = $(SUBLIBS) -lusb-1.0 /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5MultimediaWidgets.so /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5Multimedia.so /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5Widgets.so /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5Gui.so /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5Network.so /home/kiet/Qt/5.15.2/gcc_64/lib/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -251,6 +251,7 @@ DIST          = ../../Qt/5.15.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/spec_post.prf \
+		../Hologram/.qmake.stash \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -476,6 +477,7 @@ Makefile: ../Hologram/hologram.pro ../../Qt/5.15.2/gcc_64/mkspecs/linux-g++/qmak
 		../../Qt/5.15.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -688,6 +690,7 @@ Makefile: ../Hologram/hologram.pro ../../Qt/5.15.2/gcc_64/mkspecs/linux-g++/qmak
 ../../Qt/5.15.2/gcc_64/mkspecs/features/qt_config.prf:
 ../../Qt/5.15.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../Qt/5.15.2/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../Qt/5.15.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../Qt/5.15.2/gcc_64/mkspecs/features/toolchain.prf:
 ../../Qt/5.15.2/gcc_64/mkspecs/features/default_pre.prf:
@@ -821,7 +824,7 @@ moc_buttonhandler.cpp: ../Hologram/buttonhandler.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h \
 		moc_predefs.h \
 		../../Qt/5.15.2/gcc_64/bin/moc
-	/home/kiet/Qt/5.15.2/gcc_64/bin/moc $(DEFINES) --include /home/kiet/HologramApplication/build-hologram-Desktop_Qt_5_15_2_GCC_64bit-Debug/moc_predefs.h -I/home/kiet/Qt/5.15.2/gcc_64/mkspecs/linux-g++ -I/home/kiet/HologramApplication/Hologram -I/home/kiet/Qt/5.15.2/gcc_64/include -I/home/kiet/Qt/5.15.2/gcc_64/include/QtMultimedia -I/home/kiet/Qt/5.15.2/gcc_64/include/QtWidgets -I/home/kiet/Qt/5.15.2/gcc_64/include/QtGui -I/home/kiet/Qt/5.15.2/gcc_64/include/QtNetwork -I/home/kiet/Qt/5.15.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Hologram/buttonhandler.h -o moc_buttonhandler.cpp
+	/home/kiet/Qt/5.15.2/gcc_64/bin/moc $(DEFINES) --include /home/kiet/HologramApplication/build-hologram-Desktop_Qt_5_15_2_GCC_64bit-Debug/moc_predefs.h -I/home/kiet/Qt/5.15.2/gcc_64/mkspecs/linux-g++ -I/home/kiet/HologramApplication/Hologram -I/home/kiet/Qt/5.15.2/gcc_64/include -I/home/kiet/Qt/5.15.2/gcc_64/include/QtMultimediaWidgets -I/home/kiet/Qt/5.15.2/gcc_64/include/QtMultimedia -I/home/kiet/Qt/5.15.2/gcc_64/include/QtWidgets -I/home/kiet/Qt/5.15.2/gcc_64/include/QtGui -I/home/kiet/Qt/5.15.2/gcc_64/include/QtNetwork -I/home/kiet/Qt/5.15.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Hologram/buttonhandler.h -o moc_buttonhandler.cpp
 
 moc_mainwindow.cpp: ../Hologram/mainwindow.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/QMainWindow \
@@ -930,9 +933,15 @@ moc_mainwindow.cpp: ../Hologram/mainwindow.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qicon.h \
+		../Hologram/buttonhandler.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QObject \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QThread \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qthread.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h \
 		moc_predefs.h \
 		../../Qt/5.15.2/gcc_64/bin/moc
-	/home/kiet/Qt/5.15.2/gcc_64/bin/moc $(DEFINES) --include /home/kiet/HologramApplication/build-hologram-Desktop_Qt_5_15_2_GCC_64bit-Debug/moc_predefs.h -I/home/kiet/Qt/5.15.2/gcc_64/mkspecs/linux-g++ -I/home/kiet/HologramApplication/Hologram -I/home/kiet/Qt/5.15.2/gcc_64/include -I/home/kiet/Qt/5.15.2/gcc_64/include/QtMultimedia -I/home/kiet/Qt/5.15.2/gcc_64/include/QtWidgets -I/home/kiet/Qt/5.15.2/gcc_64/include/QtGui -I/home/kiet/Qt/5.15.2/gcc_64/include/QtNetwork -I/home/kiet/Qt/5.15.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Hologram/mainwindow.h -o moc_mainwindow.cpp
+	/home/kiet/Qt/5.15.2/gcc_64/bin/moc $(DEFINES) --include /home/kiet/HologramApplication/build-hologram-Desktop_Qt_5_15_2_GCC_64bit-Debug/moc_predefs.h -I/home/kiet/Qt/5.15.2/gcc_64/mkspecs/linux-g++ -I/home/kiet/HologramApplication/Hologram -I/home/kiet/Qt/5.15.2/gcc_64/include -I/home/kiet/Qt/5.15.2/gcc_64/include/QtMultimediaWidgets -I/home/kiet/Qt/5.15.2/gcc_64/include/QtMultimedia -I/home/kiet/Qt/5.15.2/gcc_64/include/QtWidgets -I/home/kiet/Qt/5.15.2/gcc_64/include/QtGui -I/home/kiet/Qt/5.15.2/gcc_64/include/QtNetwork -I/home/kiet/Qt/5.15.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Hologram/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1135,19 +1144,19 @@ main.o: ../Hologram/main.cpp ../Hologram/mainwindow.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qicon.h \
+		../Hologram/buttonhandler.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QObject \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QThread \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qthread.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/QApplication \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qapplication.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qcoreapplication.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qeventloop.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qguiapplication.h \
-		../../Qt/5.15.2/gcc_64/include/QtGui/qinputmethod.h \
-		../Hologram/buttonhandler.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/QObject \
-		../../Qt/5.15.2/gcc_64/include/QtCore/QThread \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qthread.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qdeadlinetimer.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h
+		../../Qt/5.15.2/gcc_64/include/QtGui/qinputmethod.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Hologram/main.cpp
 
 mainwindow.o: ../Hologram/mainwindow.cpp ../Hologram/mainwindow.h \
@@ -1257,7 +1266,38 @@ mainwindow.o: ../Hologram/mainwindow.cpp ../Hologram/mainwindow.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qicon.h \
+		../Hologram/buttonhandler.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QObject \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QThread \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qthread.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h \
 		ui_mainwindow.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QVariant \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QApplication \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qeventloop.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.15.2/gcc_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.15.2/gcc_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QMenuBar \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qmenubar.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qmenu.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qaction.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QStatusBar \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qstatusbar.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QTextEdit \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qtextedit.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qframe.h \
+		../../Qt/5.15.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../Qt/5.15.2/gcc_64/include/QtGui/qtextoption.h \
+		../../Qt/5.15.2/gcc_64/include/QtGui/qtextcursor.h \
+		../../Qt/5.15.2/gcc_64/include/QtGui/qtextformat.h \
+		../../Qt/5.15.2/gcc_64/include/QtGui/qpen.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
 		../../Qt/5.15.2/gcc_64/include/QtMultimedia/QMediaPlayer \
 		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaplayer.h \
 		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
@@ -1272,17 +1312,19 @@ mainwindow.o: ../Hologram/mainwindow.cpp ../Hologram/mainwindow.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/QSharedDataPointer \
 		../../Qt/5.15.2/gcc_64/include/QtCore/QString \
 		../../Qt/5.15.2/gcc_64/include/QtCore/QUrl \
-		../../Qt/5.15.2/gcc_64/include/QtCore/QVariant \
 		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qmetaobject.h \
 		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qaudio.h \
 		../../Qt/5.15.2/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
-		../Hologram/buttonhandler.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/QObject \
-		../../Qt/5.15.2/gcc_64/include/QtCore/QThread \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qthread.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qdeadlinetimer.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QFileDialog \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qfiledialog.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qdir.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qfileinfo.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qdialog.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/QVideoWidget \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/qvideowidget.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediabindableinterface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Hologram/mainwindow.cpp
 
 moc_buttonhandler.o: moc_buttonhandler.cpp 
