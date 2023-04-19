@@ -75,8 +75,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     buttonThread->start();
 
-    player = new QMediaPlayer;
+       player = new QMediaPlayer;
        videoWidget = new QVideoWidget;
+       videoWidget->setBrightness(-50);
+       videoWidget->setContrast(-50);
+       player->setPosition(10000);
+       connect(player,&QMediaPlayer::positionChanged,[=](int value){
+
+           if(value>=15000){
+               player->stop();
+           }
+
+       });
        player->setVideoOutput(videoWidget);
 
        // Create a push button to open a file
