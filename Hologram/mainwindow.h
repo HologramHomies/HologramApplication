@@ -20,6 +20,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     video_config** video_list = new video_config*[8];
+    QString folder_path;
+    int num_videos;
 
 private slots:
     void onButtonPressed(int buttonId);

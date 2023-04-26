@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration name="Test">
+    <button end_pos="89" start_pos="39" contrast="45" brightness="-47" video_path="C:/Users/felip/Videos/It's All Yours - National Forests.mp4" id="1"/>
+    <button end_pos="82" start_pos="18" contrast="40" brightness="53" video_path="C:/Users/felip/Videos/Nature_ California's Tahoe National Forest.mp4" id="2"/>
+    <button end_pos="-16748600" start_pos="22" contrast="-42" brightness="-68" video_path="C:/Users/felip/Videos/OCALA National Forest 8K Florida (Visually Stunning 3min Tour).mp4" id="3"/>
+    <button end_pos="79" start_pos="16" contrast="-37" brightness="66" video_path="C:/Users/felip/Videos/The Life of a Park Ranger.mp4" id="4"/>
+    <button end_pos="76" start_pos="22" contrast="100" brightness="-100" video_path="C:/Users/felip/Videos/What Does A Park Ranger Do_.mp4" id="5"/>
+</configuration>

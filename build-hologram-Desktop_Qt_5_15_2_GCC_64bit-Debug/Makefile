@@ -54,11 +54,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../Hologram/buttonhandler.cpp \
 		../Hologram/main.cpp \
-		../Hologram/mainwindow.cpp moc_buttonhandler.cpp \
+		../Hologram/mainwindow.cpp \
+		../Hologram/video_config.cpp moc_buttonhandler.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = buttonhandler.o \
 		main.o \
 		mainwindow.o \
+		video_config.o \
 		moc_buttonhandler.o \
 		moc_mainwindow.o
 DIST          = ../../Qt/5.15.2/gcc_64/mkspecs/features/spec_pre.prf \
@@ -273,9 +275,11 @@ DIST          = ../../Qt/5.15.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/yacc.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/lex.prf \
 		../Hologram/hologram.pro ../Hologram/buttonhandler.h \
-		../Hologram/mainwindow.h ../Hologram/buttonhandler.cpp \
+		../Hologram/mainwindow.h \
+		../Hologram/video_config.h ../Hologram/buttonhandler.cpp \
 		../Hologram/main.cpp \
-		../Hologram/mainwindow.cpp
+		../Hologram/mainwindow.cpp \
+		../Hologram/video_config.cpp
 QMAKE_TARGET  = hologram
 DESTDIR       = 
 TARGET        = hologram
@@ -727,8 +731,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/5.15.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Hologram/buttonhandler.h ../Hologram/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Hologram/buttonhandler.cpp ../Hologram/main.cpp ../Hologram/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Hologram/buttonhandler.h ../Hologram/mainwindow.h ../Hologram/video_config.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Hologram/buttonhandler.cpp ../Hologram/main.cpp ../Hologram/mainwindow.cpp ../Hologram/video_config.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Hologram/mainwindow.ui $(DISTDIR)/
 
 
@@ -933,12 +937,36 @@ moc_mainwindow.cpp: ../Hologram/mainwindow.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qicon.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/QMediaPlayer \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaplayer.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaobject.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmultimedia.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediacontent.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaresource.h \
+		../../Qt/5.15.2/gcc_64/include/QtNetwork/qnetworkrequest.h \
+		../../Qt/5.15.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../Qt/5.15.2/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QSharedDataPointer \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QString \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QUrl \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QVariant \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qmetaobject.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qaudio.h \
+		../../Qt/5.15.2/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/QVideoWidget \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/qvideowidget.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		../Hologram/buttonhandler.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/QObject \
 		../../Qt/5.15.2/gcc_64/include/QtCore/QThread \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qthread.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h \
+		../Hologram/video_config.h \
 		moc_predefs.h \
 		../../Qt/5.15.2/gcc_64/bin/moc
 	/home/kiet/Qt/5.15.2/gcc_64/bin/moc $(DEFINES) --include /home/kiet/HologramApplication/build-hologram-Desktop_Qt_5_15_2_GCC_64bit-Debug/moc_predefs.h -I/home/kiet/Qt/5.15.2/gcc_64/mkspecs/linux-g++ -I/home/kiet/HologramApplication/Hologram -I/home/kiet/Qt/5.15.2/gcc_64/include -I/home/kiet/Qt/5.15.2/gcc_64/include/QtMultimediaWidgets -I/home/kiet/Qt/5.15.2/gcc_64/include/QtMultimedia -I/home/kiet/Qt/5.15.2/gcc_64/include/QtWidgets -I/home/kiet/Qt/5.15.2/gcc_64/include/QtGui -I/home/kiet/Qt/5.15.2/gcc_64/include/QtNetwork -I/home/kiet/Qt/5.15.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Hologram/mainwindow.h -o moc_mainwindow.cpp
@@ -1144,12 +1172,36 @@ main.o: ../Hologram/main.cpp ../Hologram/mainwindow.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qicon.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/QMediaPlayer \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaplayer.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaobject.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmultimedia.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediacontent.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaresource.h \
+		../../Qt/5.15.2/gcc_64/include/QtNetwork/qnetworkrequest.h \
+		../../Qt/5.15.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../Qt/5.15.2/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QSharedDataPointer \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QString \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QUrl \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QVariant \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qmetaobject.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qaudio.h \
+		../../Qt/5.15.2/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/QVideoWidget \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/qvideowidget.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		../Hologram/buttonhandler.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/QObject \
 		../../Qt/5.15.2/gcc_64/include/QtCore/QThread \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qthread.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qdeadlinetimer.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h \
+		../Hologram/video_config.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/QApplication \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qapplication.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1266,38 +1318,6 @@ mainwindow.o: ../Hologram/mainwindow.cpp ../Hologram/mainwindow.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../Qt/5.15.2/gcc_64/include/QtGui/qicon.h \
-		../Hologram/buttonhandler.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/QObject \
-		../../Qt/5.15.2/gcc_64/include/QtCore/QThread \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qthread.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qdeadlinetimer.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h \
-		ui_mainwindow.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/QVariant \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/QApplication \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/qapplication.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qcoreapplication.h \
-		../../Qt/5.15.2/gcc_64/include/QtCore/qeventloop.h \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../Qt/5.15.2/gcc_64/include/QtGui/qguiapplication.h \
-		../../Qt/5.15.2/gcc_64/include/QtGui/qinputmethod.h \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/QMenuBar \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/qmenubar.h \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/qmenu.h \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/qaction.h \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/QStatusBar \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/qstatusbar.h \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/QTextEdit \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/qtextedit.h \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/qframe.h \
-		../../Qt/5.15.2/gcc_64/include/QtGui/qtextdocument.h \
-		../../Qt/5.15.2/gcc_64/include/QtGui/qtextoption.h \
-		../../Qt/5.15.2/gcc_64/include/QtGui/qtextcursor.h \
-		../../Qt/5.15.2/gcc_64/include/QtGui/qtextformat.h \
-		../../Qt/5.15.2/gcc_64/include/QtGui/qpen.h \
-		../../Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
 		../../Qt/5.15.2/gcc_64/include/QtMultimedia/QMediaPlayer \
 		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaplayer.h \
 		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
@@ -1312,20 +1332,90 @@ mainwindow.o: ../Hologram/mainwindow.cpp ../Hologram/mainwindow.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/QSharedDataPointer \
 		../../Qt/5.15.2/gcc_64/include/QtCore/QString \
 		../../Qt/5.15.2/gcc_64/include/QtCore/QUrl \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QVariant \
 		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qmetaobject.h \
 		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qaudio.h \
 		../../Qt/5.15.2/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/QVideoWidget \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/qvideowidget.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
+		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
+		../Hologram/buttonhandler.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QObject \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QThread \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qthread.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h \
+		../Hologram/video_config.h \
+		ui_mainwindow.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QApplication \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qeventloop.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.15.2/gcc_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.15.2/gcc_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QMenuBar \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qmenubar.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qmenu.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qaction.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QPushButton \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QStatusBar \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qstatusbar.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/QFileDialog \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qfiledialog.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qdir.h \
 		../../Qt/5.15.2/gcc_64/include/QtCore/qfileinfo.h \
 		../../Qt/5.15.2/gcc_64/include/QtWidgets/qdialog.h \
-		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/QVideoWidget \
-		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/qvideowidget.h \
-		../../Qt/5.15.2/gcc_64/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
-		../../Qt/5.15.2/gcc_64/include/QtMultimedia/qmediabindableinterface.h
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qlayout.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../Qt/5.15.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QXmlStreamReader \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qxmlstream.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QFile
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Hologram/mainwindow.cpp
+
+video_config.o: ../Hologram/video_config.cpp ../Hologram/video_config.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/QString \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qstring.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qchar.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qglobal.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qconfig.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qtcore-config.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qsystemdetection.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qprocessordetection.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qtypeinfo.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qsysinfo.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qlogging.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qflags.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qatomic.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qbasicatomic.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qgenericatomic.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qglobalstatic.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qmutex.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qnumeric.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qversiontagging.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qbytearray.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qrefcount.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qnamespace.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qarraydata.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qstringliteral.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qstringview.h \
+		../../Qt/5.15.2/gcc_64/include/QtCore/qstringbuilder.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o video_config.o ../Hologram/video_config.cpp
 
 moc_buttonhandler.o: moc_buttonhandler.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_buttonhandler.o moc_buttonhandler.cpp
