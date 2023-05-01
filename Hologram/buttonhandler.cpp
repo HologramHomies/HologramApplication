@@ -1,6 +1,6 @@
 #include "buttonhandler.h"
-#include <libusb-1.0/libusb.h>
-#include<unistd.h>
+#include <libusb.h>
+#include <unistd.h>
 
 #include <QDebug>
 
@@ -47,6 +47,7 @@ void ButtonHandler::listenToButtons()
             continue;
         }
 
+
         if (descriptor.idVendor == VENDOR_ID && descriptor.idProduct == PRODUCT_ID) {
 
             // Open the USB device and claim the interface
@@ -66,59 +67,72 @@ void ButtonHandler::listenToButtons()
             // Poll the USB device for button presses
             qDebug() << "Waiting for button press...";
             while (true) {
-                unsigned char buffer[8];
+
+                unsigned char buffer[9];
                 int transferred;
                 error = libusb_interrupt_transfer(dev_handle, ENDPOINT_ADDRESS, buffer, sizeof(buffer), &transferred, 1000);
+                qDebug()<<buffer;
+                qDebug()<<"check";
                 if (error == LIBUSB_SUCCESS && transferred == sizeof(buffer)) {
+
                     switch(buffer[5]){
                         case 0x1f:
                             qDebug() << "Button 1 pressed!";
                             emit buttonPressed(1);
-                            sleep(1);
+                            memset(buffer, 0, 9);
+
+                            //sleep(5);
                             break;
                         case 0x2f:
                             qDebug() << "Button 2 pressed!";
                             emit buttonPressed(2);
-                            sleep(1);
+                            memset(buffer, 0, 9);
+                            //sleep(5);
                             break;
                         case 0x4f:
                             qDebug() << "Button 3 pressed!";
                             emit buttonPressed(3);
-                            sleep(1);
+                            memset(buffer, 0, 9);
+                            //sleep(5);
                             break;
                         case 0x8f:
                             qDebug() << "Button 4 pressed!";
                             emit buttonPressed(4);
-                            sleep(1);
+                            memset(buffer, 0, 9);
+                            //sleep(1);
                             break;
                         default:
                             switch(buffer[6]){
                             case 0x1:
                                 qDebug() << "Button 5 pressed!";
                                 emit buttonPressed(5);
-                                sleep(1);
+                                memset(buffer, 0, 9);
+                                //sleep(1);
                                 break;
                             case 0x2:
                                 qDebug() << "Button 6 pressed!";
                                 emit buttonPressed(6);
-                                sleep(1);
+                                memset(buffer, 0, 9);
+                                //sleep(1);
                                 break;
                             case 0x4:
                                 qDebug() << "Button 7 pressed!";
                                 emit buttonPressed(7);
-                                sleep(1);
+                                memset(buffer, 0, 9);
+                                //sleep(1);
                                 break;
                             case 0x8:
                                 qDebug() << "Button 8 pressed!";
                                 emit buttonPressed(8);
-                                sleep(1);
+                                memset(buffer, 0, 9);
+                                //sleep(1);
                                 break;
                             }
                     }
                 }
                 //debug
 //                 for (int i = 0; i < sizeof(buffer); i++) {
-//                     qDebug() << static_cast<int>(buffer[i]) << " ";
+//                    // qDebug() << static_cast<int>(buffer[i]) << " ";
 //                 }
             }
 

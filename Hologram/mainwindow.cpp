@@ -196,6 +196,8 @@ void MainWindow::on_pushButton_clicked()
     {
         qDebug() << "XML Error";
     }
+//    player->setMedia(QUrl::fromLocalFile(video_list[0]->getVideo_path()));
+//    player->play();
     f.close();
 }
 

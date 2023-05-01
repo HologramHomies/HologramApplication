@@ -1,7 +1,8 @@
 QT       += core gui multimedia multimediawidgets
-LIBS += -lusb-1.0
-
+LIBS += -LC:\Users\felip\Downloads\libusb-1.0.26-binaries\libusb-1.0.26-binaries\libusb-MinGW-x64\lib -lusb-1.0
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+INCLUDEPATH += C:\Users\felip\Downloads\libusb-1.0.26-binaries\libusb-1.0.26-binaries\libusb-MinGW-x64\include
 
 CONFIG += c++17
 
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     buttonhandler.h \
+    libusb.h \
     mainwindow.h \
     video_config.h
 
