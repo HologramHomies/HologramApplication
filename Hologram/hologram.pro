@@ -1,8 +1,8 @@
 QT       += core gui multimedia multimediawidgets
-LIBS += -LC:\Users\felip\Downloads\libusb-1.0.26-binaries\libusb-1.0.26-binaries\libusb-MinGW-x64\lib -lusb-1.0
+LIBS += -L\libusb-1.0.26-binaries\libusb-1.0.26-binaries\libusb-MinGW-x64\lib -lusb-1.0
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-INCLUDEPATH += C:\Users\felip\Downloads\libusb-1.0.26-binaries\libusb-1.0.26-binaries\libusb-MinGW-x64\include
+INCLUDEPATH += \libusb-1.0.26-binaries\libusb-1.0.26-binaries\libusb-MinGW-x64\include
 
 CONFIG += c++17
 
